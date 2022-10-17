@@ -27,6 +27,14 @@ const LOCAL_STORAGE_FEEDBACK_KEYS = {
   combined: 'combined'
 };
 
+const getLocalStorageUser = () => {
+  return localStorage.getItem('userId');
+}
+
+const setLocalStorageUser = (userId) => {
+  localStorage.setItem('userId', userId);
+}
+
 const getLocalStorageFeedbackData = () => {
   return JSON.parse(
     localStorage.getItem(LOCAL_STORAGE_KEYS_FEEDBACK_MAP_KEY)
@@ -34,15 +42,9 @@ const getLocalStorageFeedbackData = () => {
 }
 
 const setLocalStorageFeedbackData = (subkey, feedback) => {
-  localStorage.setItem(
-    'feedback',
-    JSON.stringify(
-      Object.assign(
-        JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS_FEEDBACK_MAP_KEY)) || {},
-        { [subkey]: feedback }
-      )
-    )
-  );
+  const newFeedbackData = Object.assign(getLocalStorageFeedbackData() || {}, { [subkey]: feedback });
+
+  localStorage.setItem(LOCAL_STORAGE_KEYS_FEEDBACK_MAP_KEY, JSON.stringify(newFeedbackData));
 };
 
 function App() {
@@ -52,8 +54,6 @@ function App() {
     setFeedbackData(getLocalStorageFeedbackData() || {})
   };
 
-  console.log(feedbackData, 'feedback');
-
   const openSuccessNotification = () => {
     notification.open({
       message: 'Thank you!',
@@ -62,15 +62,31 @@ function App() {
     });
   };
 
-  const submitFeedback = async (feedback, subkey) => {
-    const data = { ...feedback, page: 'root' };
-    console.log('Submit feedback', data);
+  const submitFeedback = async (feedbackId, payload, localStorageSubkey) => {
+    const userId = getLocalStorageUser();
+    const metadata = { page: 'root' };
+    const submitPayload = { ...metadata, ...payload };
+
+    if (userId) submitPayload.userId = userId;
+
+    let feedback;
 
     try {
-      const { data: createdFeedback } = await axiosInstance.post('/feedback', data);
-      console.log(createdFeedback, 'createdFeedback')
+      if (feedbackId) {
+        const { data } = await axiosInstance.put(`/feedback/${feedbackId}`, submitPayload);
 
-      setLocalStorageFeedbackData(subkey, { ...feedback, id: createdFeedback.id });
+        feedback = data;
+      } else {
+        const { data } = await axiosInstance.post('/feedback', submitPayload);
+
+        feedback = data;
+      }
+
+      if (!userId) {
+        setLocalStorageUser(feedback.userId);
+      }
+
+      setLocalStorageFeedbackData(localStorageSubkey, { id: feedback.id, ...payload });
       refreshFeedback();
       openSuccessNotification();
     } catch (e) {
@@ -92,16 +108,28 @@ function App() {
         />
 
         <div className="App-main-section-example-wrapper">
-          <RatingExample data={feedbackData.rating} onSubmit={(rating) => submitFeedback(rating, LOCAL_STORAGE_FEEDBACK_KEYS.rating)} />
+          <RatingExample
+            data={feedbackData.rating}
+            onSubmit={(id, payload) => submitFeedback(id, payload, LOCAL_STORAGE_FEEDBACK_KEYS.rating)}
+          />
         </div>
         <div className="App-main-section-example-wrapper">
-          <LikeDislikeExample data={feedbackData.sentiment} onSubmit={(sentiment) => submitFeedback(sentiment, LOCAL_STORAGE_FEEDBACK_KEYS.sentiment)} />
+          <LikeDislikeExample
+            data={feedbackData.sentiment}
+            onSubmit={(id, payload) => submitFeedback(id, payload, LOCAL_STORAGE_FEEDBACK_KEYS.sentiment)}
+          />
         </div>
         <div className="App-main-section-example-wrapper">
-          <SuggestionExample data={feedbackData.suggestion} onSubmit={(suggestion) => submitFeedback(suggestion, LOCAL_STORAGE_FEEDBACK_KEYS.suggestion)} />
+          <SuggestionExample
+            data={feedbackData.suggestion}
+            onSubmit={(id, payload) => submitFeedback(id, payload, LOCAL_STORAGE_FEEDBACK_KEYS.suggestion)}
+          />
         </div>
         <div className="App-main-section-example-wrapper">
-          <CombinedExample data={feedbackData.combined} onSubmit={(combinedFeedback) => submitFeedback(combinedFeedback, LOCAL_STORAGE_FEEDBACK_KEYS.combined)} />
+          <CombinedExample
+            data={feedbackData.combined}
+            onSubmit={(id, payload) => submitFeedback(id, payload, LOCAL_STORAGE_FEEDBACK_KEYS.combined)}
+          />
         </div>
       </main>
     </div>

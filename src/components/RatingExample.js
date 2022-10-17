@@ -7,7 +7,7 @@ function RatingExample(props) {
   return (
     <Card title="Rating example">
       <blockquote><i>What did the ocean say to the beach? Nothing, it just waved.</i></blockquote>
-      <Rate value={data.rating} onChange={(rating) => onSubmit({ rating })} />
+      <Rate value={data.rating} onChange={(rating) => onSubmit(data.id, { rating })} />
     </Card>
   );
 }

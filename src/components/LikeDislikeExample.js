@@ -11,7 +11,7 @@ function LikeDislikeExample(props) {
         <h3 style={{ marginBottom: 0 }}>Was this page helpful?</h3>
         <div style={{ display: 'flex' }}>
           <Button
-            onClick={() => onSubmit({ sentiment: true })}
+            onClick={() => onSubmit(data.id, { sentiment: true })}
             shape="round"
             type="primary"
             className={data.sentiment === true ? 'active' : ''}
@@ -23,7 +23,7 @@ function LikeDislikeExample(props) {
           </Button>
 
           <Button
-            onClick={() => onSubmit({ sentiment: false })}
+            onClick={() => onSubmit(data.id, { sentiment: false })}
             className={data.sentiment === false ? 'active' : ''}
             shape="round"
             type="primary"
