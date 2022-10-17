@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { notification } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 
 import './App.css';
 import logo from './logo.png';
@@ -18,18 +20,22 @@ const axiosInstance = axios.create({
 });
 
 function App() {
-  // const [starRating, setStarRating] = React.useState(0);
-  //
-  // const submitStarRating = async (rating) => {
-  //   setStarRating(rating);
-  //
-  //   const data = {
-  //     rating,
-  //     page: 'root'
-  //   };
-  //
-  //   await axiosInstance.post('/feedback', data);
-  // };
+  const openSuccessNotification = () => {
+    notification.open({
+      message: 'Thank you!',
+      description: 'We appreciate your feedback.',
+      icon: <SmileOutlined style={{ color: '#3BD158' }} />,
+    });
+  };
+
+  const submitFeedback = async (feedback) => {
+    const data = {
+      ...feedback,
+      page: 'root'
+    };
+
+    await axiosInstance.post('/feedback', data);
+  };
 
   return (
     <div className="App">
