@@ -21,7 +21,7 @@ function ThankYouForFeedback(props) {
         <Checkbox.Group
           options={['Content is easy to follow', 'Solved my problem', 'Other']}
           onChange={onCheckboxChange}
-          style={{ display: 'flex', flexDirection: 'column', marginBottom: '10px' }}
+          style={{ display: 'flex', flexDirection: 'column', marginBottom: '15px' }}
         />
       </div>
 

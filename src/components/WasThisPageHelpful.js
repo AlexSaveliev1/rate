@@ -10,11 +10,11 @@ function WasThisPageHelpful(props) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <h3>Was this page helpful?</h3>
         <div style={{ display: 'flex' }}>
-          <Button onClick={() => onSubmit({ sentiment: 1 })} shape="round" type="primary" icon={<CheckOutlined /> } size='large' style={{ marginRight: '10px' }}>
+          <Button onClick={() => onSubmit({ sentiment: true })} shape="round" type="primary" icon={<CheckOutlined /> } size='large' style={{ marginRight: '10px' }}>
             Yes
           </Button>
 
-          <Button onClick={() => onSubmit({ sentiment: 0 })} shape="round" type="primary" icon={ <CloseOutlined /> } size='large'>
+          <Button onClick={() => onSubmit({ sentiment: false })} shape="round" type="primary" icon={ <CloseOutlined /> } size='large'>
             No
           </Button>
         </div>

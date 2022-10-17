@@ -34,8 +34,15 @@ function App() {
       page: 'root'
     };
 
-    console.log('data', data)
-    // await axiosInstance.post('/feedback', data);
+    console.log('Submit feedback', data);
+
+    try {
+      await axiosInstance.post('/feedback', data);
+
+      openSuccessNotification();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
