@@ -1,18 +1,24 @@
 import React from 'react';
 import { Card, Button } from 'antd';
-import { CheckOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 function WasThisPageHelpful() {
   return (
     <Card>
-      <span>Was this page helpful?</span>
-      <Button shape="round" type="primary" icon={<CheckOutlined /> } size='large'>
-        Yes
-      </Button>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h3>Was this page helpful?</h3>
+        <div style={{ display: 'flex' }}>
+          <Button shape="round" type="primary" icon={<CheckOutlined /> } size='large' style={{ marginRight: '10px' }}>
+            Yes
+          </Button>
 
-      <Button shape="round" type="primary" icon={<CheckOutlined /> } size='large'>
-        No
-      </Button>
+          <Button shape="round" type="primary" icon={ <CloseOutlined /> } size='large'>
+            No
+          </Button>
+        </div>
+      </div>
+
+
     </Card>
   );
 }

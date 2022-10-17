@@ -2,12 +2,12 @@ import React from 'react';
 import axios from 'axios';
 
 import './App.css';
+import logo from './logo.png';
+
 import RateJoke from './components/RateJoke';
 import WasThisPageHelpful from './components/WasThisPageHelpful';
 import WhatCanWeImprove from './components/WhatCanWeImprove';
 import ThankYouForFeedback from './components/ThankYouForFeedback';
-
-import logo from './logo.png';
 
 const axiosInstance = axios.create({
   baseURL: 'https://feedback-api5.p.rapidapi.com',
@@ -37,19 +37,19 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <main className="App-main-section">
-        <div className="App-rate-card">
-          <RateJoke/>
+        <div className="App-card-wrapper">
+          <RateJoke />
         </div>
 
-        <div className="App-rate-card">
+        <div className="App-card-wrapper">
           <WasThisPageHelpful />
         </div>
 
-        <div className="App-rate-card">
+        <div className="App-card-wrapper">
           <WhatCanWeImprove />
         </div>
 
-        <div className="App-rate-card">
+        <div className="App-card-wrapper">
           <ThankYouForFeedback />
         </div>
       </main>
