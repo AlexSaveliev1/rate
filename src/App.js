@@ -34,7 +34,8 @@ function App() {
       page: 'root'
     };
 
-    await axiosInstance.post('/feedback', data);
+    console.log('data', data)
+    // await axiosInstance.post('/feedback', data);
   };
 
   return (
@@ -44,19 +45,19 @@ function App() {
       </header>
       <main className="App-main-section">
         <div className="App-card-wrapper">
-          <RateJoke />
+          <RateJoke onSubmit={submitFeedback} />
         </div>
 
         <div className="App-card-wrapper">
-          <WasThisPageHelpful />
+          <WasThisPageHelpful onSubmit={submitFeedback} />
         </div>
 
         <div className="App-card-wrapper">
-          <WhatCanWeImprove />
+          <WhatCanWeImprove onSubmit={submitFeedback} />
         </div>
 
         <div className="App-card-wrapper">
-          <ThankYouForFeedback />
+          <ThankYouForFeedback onSubmit={submitFeedback} />
         </div>
       </main>
     </div>
