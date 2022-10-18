@@ -16,7 +16,8 @@ const axiosInstance = axios.create({
   headers: {
     'X-RapidAPI-Key': '637316bb60msh72029ce58a98a83p19d6d5jsnb9fefc607f61',
     'X-RapidAPI-Host': 'feedback-api5.p.rapidapi.com'
-  }
+  },
+  withCredentials: true,
 });
 
 const LOCAL_STORAGE_KEYS_FEEDBACK_MAP_KEY = 'feedback';
