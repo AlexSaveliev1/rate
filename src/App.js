@@ -64,7 +64,7 @@ function App() {
 
   const submitFeedback = async (feedbackId, payload, localStorageSubkey) => {
     const userId = getLocalStorageUser();
-    const metadata = { page: 'root' };
+    const metadata = { page: 'root', tags: ['demo-page'] };
     const submitPayload = { ...metadata, ...payload };
 
     if (userId) submitPayload.userId = userId;
