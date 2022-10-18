@@ -14,7 +14,7 @@ import CombinedExample from './components/CombinedExample';
 const axiosInstance = axios.create({
   baseURL: 'https://feedback-api5.p.rapidapi.com',
   headers: {
-    'X-RapidAPI-Key': '664274a239msh3e7a5dba206b776p1d005fjsn88de9429d364',
+    'X-RapidAPI-Key': '637316bb60msh72029ce58a98a83p19d6d5jsnb9fefc607f61',
     'X-RapidAPI-Host': 'feedback-api5.p.rapidapi.com'
   }
 });
