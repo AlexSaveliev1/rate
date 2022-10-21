@@ -23,7 +23,7 @@ function CombinedExample(props) {
       </div>
 
       <TextArea value={suggestion} onChange={(e) => setSuggestion(e.target.value)} placeholder="Suggestions..." rows={4} />
-      <Button onClick={() => onSubmit(data.id, { suggestion, reasons })} shape="round" type="primary" size='large' style={{ marginTop: '15px' }}>
+      <Button disabled={!suggestion && !reasons.length} onClick={() => onSubmit(data.id, { suggestion, reasons })} shape="round" type="primary" size='large' style={{ marginTop: '15px' }}>
         Submit
       </Button>
     </Card>

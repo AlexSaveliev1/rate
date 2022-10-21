@@ -1,6 +1,6 @@
 {
   "name": "rate",
-  "homepage": "https://AlexSaveliev1.github.io/rate-page",
+  "homepage": "https://AlexSaveliev1.github.io/feedback-api-examples/examples/rate-page",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

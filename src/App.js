@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { notification, Alert } from 'antd';
-import { SmileOutlined } from '@ant-design/icons';
+import { SmileOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import './App.css';
 import logo from './logo.png';
@@ -62,7 +62,19 @@ function App() {
     });
   };
 
+  const openErrorNotification = () => {
+    notification.error({
+      message: 'Failed to submit feedback',
+      description: 'Something went wrong with your feedback. Please try again.',
+      icon: <ExclamationCircleOutlined style={{ color: '#F81E22' }} />,
+    });
+  };
+
   const submitFeedback = async (feedbackId, payload, localStorageSubkey) => {
+    console.log(payload, 'payload')
+    if (!payload) {
+      console.log('no payload')
+    }
     const userId = getLocalStorageUser();
     const metadata = { page: 'root', tags: ['demo-page'] };
     const submitPayload = { ...metadata, ...payload };
@@ -91,6 +103,7 @@ function App() {
       openSuccessNotification();
     } catch (e) {
       console.error(e);
+      openErrorNotification();
     }
   };
 
